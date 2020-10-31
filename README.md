@@ -1,4 +1,7 @@
 # stemCL-GUI
-GUI for stemCL.
+GUI for [stemCL](https://github.com/stemcl/stemcl) to produce the necessary parameters.dat file.
 
-Run ```python main.py```.
+Run ```python -m stemCL-GUI```.
+
+![screenshot](screenshot.png)
+![screenshot_3d](screenshot_3d.png)
