@@ -14,6 +14,7 @@ from PySide2.QtWidgets import (
     QFileDialog,
     QBoxLayout,
     QComboBox,
+    QSizePolicy,
 )
 from PySide2.QtCore import QFile, QCoreApplication, Qt
 from PySide2.QtUiTools import QUiLoader
@@ -33,8 +34,26 @@ from ase.utils import rotate
 from ase.data import atomic_names, covalent_radii
 from ase.data.colors import jmol_colors
 
-from functions import stemcl_format_xyz
-from MPLWidget import MPLWidget
+from .functions import stemcl_format_xyz
+
+from matplotlib.backends.backend_qt5cairo import FigureCanvas
+from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+
+class MPLWidget(FigureCanvas):
+    """Plotting widget that can be embedded in a PySide GUI."""
+
+    def __init__(self, figure=None, projection=None):
+        if figure is None:
+            figure = plt.Figure(tight_layout=True)
+        super().__init__(figure)
+
+        self.axes = self.figure.add_subplot(111, projection=projection)
+
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+    # end class
 
 
 class stemCL(QMainWindow):
