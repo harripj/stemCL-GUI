@@ -6,7 +6,8 @@ from mpl_toolkits.mplot3d import Axes3D
 
 
 class MPLWidget(FigureCanvas):
-    '''Plotting widget that can be embedded in a PySide GUI.'''
+    """Plotting widget that can be embedded in a PySide GUI."""
+
     def __init__(self, figure=None, projection=None):
         if figure is None:
             figure = plt.Figure(tight_layout=True)
@@ -14,5 +15,8 @@ class MPLWidget(FigureCanvas):
 
         self.axes = self.figure.add_subplot(111, projection=projection)
 
-        self.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        self.setSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
+        )
+
     # end class
