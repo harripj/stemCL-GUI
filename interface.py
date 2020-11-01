@@ -15,12 +15,16 @@ from PySide2.QtWidgets import (
     QBoxLayout,
     QComboBox,
     QSizePolicy,
+    QTreeView,
+    QCheckBox,
+    QTextEdit,
+    QProgressBar,
 )
-from PySide2.QtCore import QFile, QCoreApplication, Qt
+from PySide2.QtCore import QFile, QCoreApplication, Qt, QObject, SIGNAL
 from PySide2.QtUiTools import QUiLoader
 
 # from PySide2.QtCharts import QtCharts
-from PySide2.QtGui import QVector3D
+from PySide2.QtGui import QVector3D, QStandardItemModel, QStandardItem
 from PySide2.QtDataVisualization import QtDataVisualization
 
 import math
@@ -39,6 +43,10 @@ from .functions import stemcl_format_xyz
 from matplotlib.backends.backend_qt5cairo import FigureCanvas
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from datetime import datetime
+
+import pyopencl
+import subprocess
 
 
 class MPLWidget(FigureCanvas):
@@ -60,11 +68,107 @@ class stemCL(QMainWindow):
     def __init__(self):
         super(stemCL, self).__init__()
         self.load_ui()
+        self.setup_openCL()
 
         # setup class attr with no loaded data
         self.file_name_xyz = ""
         self.atoms = None
         self.data = None
+
+    def setup_openCL(self):
+        self.platforms = pyopencl.get_platforms()
+        self.devices = [platform.get_devices() for platform in self.platforms]
+
+        # populate treeview
+        self.treeView_model = QStandardItemModel()
+        self.treeView_model.setHorizontalHeaderLabels(["Platform"])  # , 'Device'])
+        self.treeView_openCL.setModel(self.treeView_model)
+        self.treeView_openCL.setUniformRowHeights(True)
+
+        # connect command
+        # self.treeView_model.itemChanged.connect(self.create_run_command)
+
+        for i, platform in enumerate(self.platforms):
+            parent = QStandardItem(platform.name)
+            for d in self.devices[i]:
+                parent.appendRow(QStandardItem(d.name))
+            self.treeView_model.appendRow(parent)
+            # span container columns
+            self.treeView_openCL.setFirstColumnSpanned(
+                i, self.treeView_openCL.rootIndex(), True
+            )
+
+        self.treeView_openCL.expandAll()
+
+    def create_run_command(self):
+        self.command = []
+
+        if self.checkBox_caffeinate.checkState():
+            self.command.append("caffeinate")
+
+        self.command.append("stemcl")
+
+        if not self.treeView_openCL.selectedIndexes():
+            return
+        else:
+            indexes = self.treeView_openCL.selectedIndexes()[
+                0
+            ]  # only care about first selection (if somehow more than one)
+
+        self.command.append(self.platforms[indexes.column()].name)
+        self.command.append(str(indexes.row()))
+
+        #        self.command.append('.')
+
+        if not self.file_name_xyz:
+            return
+        else:
+            # escape spaces in path
+            self.command.append(
+                # "{}".format(os.path.dirname(self.file_name_xyz).replace(" ", "\\ "))
+                os.path.dirname(self.file_name_xyz).replace(" ", "\\ ")
+            )
+
+        self.lineEdit_run_command.setText(" ".join([str(i) for i in self.command]))
+
+    def run_command(self):
+        self.textEdit_console.clear()
+        self.textEdit_console.insertHtml(str(datetime.now()))
+
+        if self.checkBox_remove_progress_pgm.checkState():
+            # remove progress.dat in directory so simulation runs again from scratch
+            fname = os.path.join(os.path.dirname(self.file_name_xyz), "progress.pgm")
+            if os.path.exists(fname):
+                os.remove(fname)
+
+        # print(" ".join(self.command))
+        out = subprocess.Popen(
+            " ".join(self.command),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=True,
+            universal_newlines=True,
+        )
+
+        lines = []
+        while True:
+            line = out.stdout.readline()
+            if not line:
+                break
+            lines.append(line)
+
+            # print to terminal
+            print(line, end="")
+            try:
+                index = int(line.strip().index("%"))
+                self.progressBar.setValue(int(line.strip()[index - 3 : index]))
+            except ValueError:
+                # simulation preparing, not running so % will not be found in string
+                pass
+
+            self.textEdit_console.append(line.strip())
+
+        # self.textEdit_console.toMarkdown()
 
     def load_ui(self):
         loader = QUiLoader()
@@ -117,6 +221,11 @@ class stemCL(QMainWindow):
         self.pushButton_scherzer_defocus = self.ui.findChild(
             QPushButton, "pushButton_scherzer_defocus"
         )
+
+        self.pushButton_update_scan_slices = self.ui.findChild(
+            QPushButton, "pushButton_update_scan_slices"
+        )
+        self.pushButton_update_scan_slices.clicked.connect(self.plot_slices)
 
         # lineedits
         # tab1
@@ -173,14 +282,38 @@ class stemCL(QMainWindow):
             QLineEdit, "lineEdit_diffraction_n"
         )
 
-        for l in (
-            self.lineEdit_scan_x_min,
-            self.lineEdit_scan_x_max,
-            self.lineEdit_scan_y_min,
-            self.lineEdit_scan_y_max,
-            self.lineEdit_slice_thickness,
-        ):
-            l.textEdited.connect(self.plot_slices)
+        # tab run
+        self.treeView_openCL = self.ui.findChild(QTreeView, "treeView_openCL")
+
+        self.checkBox_caffeinate = self.ui.findChild(QCheckBox, "checkBox_caffeinate")
+        self.checkBox_remove_progress_pgm = self.ui.findChild(
+            QCheckBox, "checkBox_remove_progress_pgm"
+        )
+
+        self.lineEdit_run_command = self.ui.findChild(QLineEdit, "lineEdit_run_command")
+
+        self.pushButton_run_command = self.ui.findChild(
+            QPushButton, "pushButton_run_command"
+        )
+        self.pushButton_run_command.clicked.connect(self.run_command)
+
+        self.pushButton_generate_command = self.ui.findChild(
+            QPushButton, "pushButton_generate_command"
+        )
+        self.pushButton_generate_command.clicked.connect(self.create_run_command)
+
+        self.progressBar = self.ui.findChild(QProgressBar, "progressBar")
+
+        self.textEdit_console = self.ui.findChild(QTextEdit, "textEdit_console")
+        #        This functionality is slow and has been replaced by a button
+        #        for l in (
+        #            self.lineEdit_scan_x_min,
+        #            self.lineEdit_scan_x_max,
+        #            self.lineEdit_scan_y_min,
+        #            self.lineEdit_scan_y_max,
+        #            self.lineEdit_slice_thickness,
+        #        ):
+        #            l.textEdited.connect(self.plot_slices)
 
         # tab3
         self.lineEdit_GPU_PROBE = self.ui.findChild(QLineEdit, "lineEdit_GPU_PROBE")
@@ -656,7 +789,7 @@ class stemCL(QMainWindow):
 if __name__ == "__main__":
     QCoreApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
     app = QApplication([])
-    app.setQuitOnLastWindowClosed(False)
+    app.setQuitOnLastWindowClosed(True)
     #    app.aboutToQuit.connect(exiting)
     widget = stemCL()
     widget.ui.show()

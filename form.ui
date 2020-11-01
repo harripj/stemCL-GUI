@@ -26,8 +26,8 @@
      <height>200</height>
     </size>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
+   <layout class="QGridLayout" name="gridLayout_9">
+    <item row="0" column="0">
      <widget class="QFrame" name="frame">
       <property name="sizePolicy">
        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -42,10 +42,13 @@
        <enum>QFrame::Sunken</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_7">
-       <item row="0" column="1">
+       <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>2</number>
+          <number>3</number>
+         </property>
+         <property name="elideMode">
+          <enum>Qt::ElideMiddle</enum>
          </property>
          <widget class="QWidget" name="tab_probe">
           <attribute name="title">
@@ -82,31 +85,6 @@
             <widget class="Line" name="line_2">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="4">
-            <widget class="QLineEdit" name="lineEdit_cs3">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>40</width>
-               <height>10</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>1.2</string>
-             </property>
-             <property name="cursorPosition">
-              <number>3</number>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -216,10 +194,10 @@
               </size>
              </property>
              <property name="text">
-              <string>0</string>
+              <string>0.0</string>
              </property>
              <property name="cursorPosition">
-              <number>0</number>
+              <number>3</number>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -286,10 +264,10 @@
               </size>
              </property>
              <property name="text">
-              <string>0</string>
+              <string>0.0</string>
              </property>
              <property name="cursorPosition">
-              <number>0</number>
+              <number>3</number>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -318,10 +296,10 @@
               </size>
              </property>
              <property name="text">
-              <string>0</string>
+              <string>0.0</string>
              </property>
              <property name="cursorPosition">
-              <number>0</number>
+              <number>3</number>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -357,10 +335,10 @@
               </size>
              </property>
              <property name="text">
-              <string>300</string>
+              <string>-35</string>
              </property>
              <property name="cursorPosition">
-              <number>0</number>
+              <number>3</number>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -465,7 +443,7 @@
               </size>
              </property>
              <property name="text">
-              <string>0.0</string>
+              <string>5.0</string>
              </property>
              <property name="cursorPosition">
               <number>3</number>
@@ -511,6 +489,38 @@
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="4">
+            <widget class="QLineEdit" name="lineEdit_cs3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>10</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>-0.05</string>
+             </property>
+             <property name="cursorPosition">
+              <number>5</number>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="2">
+            <widget class="QPushButton" name="pushButton_scherzer_defocus">
+             <property name="text">
+              <string>Scherzer Defocus</string>
              </property>
             </widget>
            </item>
@@ -1031,83 +1041,6 @@
              <property name="rightMargin">
               <number>0</number>
              </property>
-             <item row="0" column="0" colspan="2">
-              <widget class="QLabel" name="label_26">
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Slice Thickness&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="label_27">
-               <property name="text">
-                <string>nm</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1">
-              <widget class="QLineEdit" name="lineEdit_tilt_x">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>10</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>0</string>
-               </property>
-               <property name="cursorPosition">
-                <number>0</number>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="label_17">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>y (mrad)</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLineEdit" name="lineEdit_slice_thickness">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>0.5</string>
-               </property>
-               <property name="cursorPosition">
-                <number>0</number>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
              <item row="5" column="1">
               <widget class="QLineEdit" name="lineEdit_tilt_y">
                <property name="sizePolicy">
@@ -1146,6 +1079,87 @@
                </property>
               </widget>
              </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_17">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>y (mrad)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QLineEdit" name="lineEdit_slice_thickness">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>40</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>2</string>
+                 </property>
+                 <property name="cursorPosition">
+                  <number>1</number>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_27">
+                 <property name="text">
+                  <string>A</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="0" column="0" colspan="2">
+              <widget class="QLabel" name="label_26">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Slice Thickness&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="lineEdit_tilt_x">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>10</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+               <property name="cursorPosition">
+                <number>0</number>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
              <item row="3" column="0" colspan="2">
               <widget class="QLabel" name="label">
                <property name="text">
@@ -1156,10 +1170,10 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="0" colspan="2">
-              <widget class="Line" name="line_9">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="pushButton_update_scan_slices">
+               <property name="text">
+                <string>Update Scan and Slices</string>
                </property>
               </widget>
              </item>
@@ -1252,7 +1266,7 @@
          </widget>
          <widget class="QWidget" name="tab_summary">
           <attribute name="title">
-           <string>Summary View</string>
+           <string>xyz</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="0" column="0">
@@ -1330,6 +1344,92 @@
            </item>
           </layout>
          </widget>
+         <widget class="QWidget" name="tab_run">
+          <attribute name="title">
+           <string>Run</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_13">
+           <item row="4" column="0" colspan="3">
+            <widget class="QPushButton" name="pushButton_generate_command">
+             <property name="text">
+              <string>Generate Command</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="3">
+            <widget class="QLineEdit" name="lineEdit_run_command">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="checkBox_caffeinate">
+             <property name="text">
+              <string>Caffeinate?</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0" colspan="3">
+            <widget class="QPushButton" name="pushButton_run_command">
+             <property name="text">
+              <string>Run Simulation</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="3">
+            <widget class="QTreeView" name="treeView_openCL"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="Line" name="line_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_46">
+             <property name="text">
+              <string>openCL</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="8" rowspan="6">
+            <widget class="QTextEdit" name="textEdit_console">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="acceptRichText">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="8">
+            <widget class="QLabel" name="label_48">
+             <property name="text">
+              <string>Console Output</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QCheckBox" name="checkBox_remove_progress_pgm">
+             <property name="text">
+              <string>Remove progress.pgm?</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0" colspan="3">
+            <widget class="QProgressBar" name="progressBar">
+             <property name="value">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="tab_advanced">
           <attribute name="title">
            <string>Advanced</string>
@@ -1399,7 +1499,7 @@
               <string>B</string>
              </property>
              <property name="text">
-              <string>1</string>
+              <string>0</string>
              </property>
             </widget>
            </item>
@@ -1410,7 +1510,7 @@
       </layout>
      </widget>
     </item>
-    <item>
+    <item row="1" column="0">
      <widget class="QPushButton" name="pushButton_create_dat">
       <property name="text">
        <string>Create parameter.dat</string>
