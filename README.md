@@ -1,7 +1,8 @@
 # stemCL-GUI
-GUI for [stemCL](https://github.com/stemcl/stemcl) to produce the necessary `parameters.dat` file.
+GUI for [stemCL](https://github.com/stemcl/stemcl) to visualize the atomic structure and simlation geometry, and to produce the necessary `parameters.dat` file.
 
-Run ```python -m stemCL-GUI```.
+The program may be run as:
+```python -m stemCL-GUI```.
 
 ![screenshot](screenshot.png)
 ![screenshot_3d](screenshot_3d.png)
