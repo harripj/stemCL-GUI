@@ -759,7 +759,9 @@ class stemCL(QMainWindow):
         fname, _ext = os.path.splitext(fname)
 
         out = QFileDialog.getExistingDirectory(
-            self, dir=self.tr(basename), caption=self.tr("Open directory"),
+            self,
+            dir=self.tr(basename),
+            caption=self.tr("Open directory"),
         )
         if out:
             for i in range(self.comboBox_plt.count()):
